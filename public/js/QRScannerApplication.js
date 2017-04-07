@@ -10,7 +10,7 @@ class QRScannerApplication {
       this.cameraOperator = new CameraOperator(this.videoDisplayElement)
       this.cameraOperator.start()
     } else {
-      // console.log('videoDisplayDiv was not present.')
+      // console.log('videoDisplayElement was not present.')
     }
   }
 }
