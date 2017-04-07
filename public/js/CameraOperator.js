@@ -1,8 +1,8 @@
 class CameraOperator {
-  constructor(videoDisplayDiv, apiPath) {
-    this.videoDisplayDiv = videoDisplayDiv
+  constructor(videoDisplayElement, apiPath) {
+    this.videoDisplayElement = videoDisplayElement
     this.apiPath = apiPath || '/api/v1/attendance'
-    this.scanner = new Instascan.Scanner({ video: videoDisplayDiv })
+    this.scanner = new Instascan.Scanner({ video: videoDisplayElement })
   }
 
   start() {

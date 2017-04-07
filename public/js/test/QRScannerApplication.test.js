@@ -8,11 +8,19 @@ describe('QRScannerApplication', () => {
       expect(app.cameraOperator).toBeNull()
     })
 
-    it('does creates a CameraOperator when videoDisplayId is present', () => {
-      document.body.innerHTML += '<video id="video-preview"></video>'
+    it('creates a CameraOperator when videoDisplayId is present', () => {
+      videoElement = document.createElement('video')
+      videoElement.setAttribute('id', 'video-preview')
+      document.body.appendChild(videoElement)
+
       app = new QRScannerApplication('video-preview')
       app.start()
+
       expect(app.cameraOperator).not.toBeNull()
+
+      // clean up
+      videoElement.parentElement.removeChild(videoElement)
+      // todo - prevent new CameraOperator(this.videoDisplayElement) from being called
     })
   })
 })
