@@ -1,24 +1,14 @@
-## Todo
+## Instascan Demo
 
-* ensure page is only accessible via token/password/location
+Scan a QR code & post results to an API.
 
+## Instructions
 
-## API
+```no-highlight
+$ git clone <this-repo>
+$ cd instascan-demo
+$ npm install
+$ npm start
+```
 
-https://launchpass.launchacademy.com/api/v1/attendance?scan=#{scan.content}
-
-
-## Objects involved
-
-* Laptop/Phone/Tablet/Computer/Device
-  - Camera: outputs video
-* Web API
-  - Host
-  - Path
-* Web Application
-  - Video Display
-  - Modal: Success/Failure
-  - POST to Web API
-* Instructor
-* Student
-  - QR Code (Identification)
+Visit <http://localhost:3000/> and hold a QR code in front of the camera.
