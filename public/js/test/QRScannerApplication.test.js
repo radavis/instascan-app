@@ -20,7 +20,7 @@ describe('QRScannerApplication', () => {
 
       // clean up
       videoElement.parentElement.removeChild(videoElement)
-      // todo - prevent new CameraOperator(this.videoDisplayElement) from being called
+      // todo - prevent new CameraOperator(this.videoDisplayElement) from actually being called
     })
   })
 })

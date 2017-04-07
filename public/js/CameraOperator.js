@@ -6,19 +6,17 @@ class CameraOperator {
   }
 
   start() {
-    this.postToAPIOnScan()
+    this.addScanEventListener()
     this.startScanning()
   }
 
-  postToAPIOnScan() {
+  addScanEventListener() {
+    // scan event fires when a QR code is captured by the camera
     this.scanner.addListener('scan', (content) => {
-      console.log({ scan: content })
+      let dataObject = { scan: content }
+      console.log(dataObject)
 
-      // post content to server
-      fetch(this.apiPath, {
-        method: 'POST',
-        body: JSON.stringify({ scan: content })
-      })
+      this.postDataToAPI(dataObject)
       .then((response) => {
         if (response.status == 201) {
           new TimedModal('Thanks for scanning in.').display()
@@ -29,20 +27,31 @@ class CameraOperator {
     })
   }
 
+  postDataToAPI(dataObject) {
+    return fetch(this.apiPath, {
+      method: 'POST',
+      body: JSON.stringify(dataObject)
+    })
+  }
+
   startScanning() {
-    Instascan.Camera.getCameras()
+    this.getCamera()
+    .then((camera) => {
+      this.scanner.start(camera)  // start scanning for QR codes
+    })
+    .catch((e) => {
+      console.error(e)
+    })
+  }
+
+  getCamera() {
+    return Instascan.Camera.getCameras()
     .then((cameras) => {
       if (cameras.length > 0) {
         return cameras[0]
       } else {
         new TimedModal('Camera not found.', 'error', 5 * 60 * 1000).display()
       }
-    })
-    .then((camera) => {
-      this.scanner.start(camera)  // start scanning for QR codes
-    })
-    .catch((e) => {
-      console.error(e)
     })
   }
 }
