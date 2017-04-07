@@ -1,21 +1,3 @@
-let displaySuccessModal = (message, timeout) => {
-  sweetAlert({
-    title: 'Success!',
-    text: message,
-    type: 'success',
-    timer: timeout || 5000
-  })
-}
-
-let displayFailureModal = (message, timeout) => {
-  sweetAlert({
-    title: 'Oops...',
-    text: message,
-    type: 'error',
-    timer: timeout || 5000
-  })
-}
-
 let videoPreviewDiv = document.getElementById('video-preview')
 let scanner = new Instascan.Scanner({ video: videoPreviewDiv })
 
@@ -28,9 +10,9 @@ scanner.addListener('scan', (content) => {
   })
   .then((response) => {
     if (response.status == 201) {
-      displaySuccessModal('Thanks for scanning in.')
+      new Modal('Thanks for scanning in.', 'success').display()
     } else {
-      displayFailureModal('Something went wrong!')
+      new Modal('Something went wrong!', 'error').display()
     }
   })
 })
@@ -41,7 +23,7 @@ Instascan.Camera.getCameras()
   if (cameras.length > 0) {
     return cameras[0]
   } else {
-    displayFailureModal('Camera not found.', 5 * 60 * 1000)
+    new Modal('Camera not found.', 'error', 5 * 60 * 1000).display()
   }
 })
 .then((camera) => {
