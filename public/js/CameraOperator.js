@@ -6,7 +6,7 @@ class CameraOperator {
   }
 
   createScanner() {
-    return new Instascan.Scanner({ video: videoDisplayElement })
+    return new Instascan.Scanner({ video: this.videoDisplayElement })
   }
 
   start() {

@@ -16,6 +16,6 @@ class QRScannerApp {
   }
 
   newCameraOperator() {
-    return new CameraOperator(this.videoDisplayElement, postDataToAPI)
+    return new CameraOperator(this.videoDisplayElement, postObjectToAPI)
   }
 }
