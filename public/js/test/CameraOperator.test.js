@@ -1,15 +1,24 @@
 describe('CameraOperator', () => {
-  let cameraOperator, videoElement
+  var cameraOperator, videoElement, createScannerSpy
 
   beforeEach(() => {
+    // add 'video#video-preview' element to the page
     videoElement = document.createElement('video')
     videoElement.setAttribute('id', 'video-preview')
     document.body.appendChild(videoElement)
 
-    cameraOperator = new CameraOperator(videoElement)
+    // create spies
+    let scannerSpy = jasmine.createSpyObj('scanner', ['addListener', 'start'])
+    createScannerSpy = spyOn(CameraOperator.prototype, 'createScanner')
+      .and.returnValue(scannerSpy)
+    let onScanEventHandlerSpy = jasmine.createSpy()
+
+    // init subject under test
+    cameraOperator = new CameraOperator(videoElement, onScanEventHandlerSpy)
   })
 
   afterEach(() => {
+    // remove 'video#video-preview' element from the page
     videoElement.parentElement.removeChild(videoElement)
   })
 
@@ -18,29 +27,43 @@ describe('CameraOperator', () => {
       expect(cameraOperator.videoDisplayElement).toEqual(videoElement)
     })
 
-    it('defaults the apiPath property to "/api/v1/attendance"', () => {
-      expect(cameraOperator.apiPath).toEqual('/api/v1/attendance')
+    it('sets the onScanEventHandler', () => {
+      expect(cameraOperator.onScanEventHandler).not.toBeNull()
+      expect(typeof cameraOperator.onScanEventHandler).toEqual('function')
     })
 
     it('initializes a new Instascan.Scanner object', () => {
-      expect(cameraOperator.scanner).toBeDefined()
+      expect(createScannerSpy).toHaveBeenCalled()
+      expect(typeof cameraOperator.scanner).toEqual('object')
     })
   })
 
   describe('start()', () => {
-    xit('calls postToAPIOnScan()')
-    xit('calls startScanning()')
-  })
+    beforeEach(() => {
+      spyOn(cameraOperator, 'addScanEventListener')
+      spyOn(cameraOperator, 'startScanning')
+    })
 
-  describe('postToAPIOnScan()', () => {
-    xit('adds an event listener to "scan" events')
-    xit('makes a POST request to the apiPath')
-    xit('creates a new TimedModal with a successful message with a 201 response')
-    xit('creates a new TimedModal error message with any other response')
+    it('calls postToAPIOnScan()', () => {
+      cameraOperator.start()
+      expect(cameraOperator.addScanEventListener).toHaveBeenCalled()
+    })
+
+    it('calls startScanning()', () => {
+      cameraOperator.start()
+      expect(cameraOperator.startScanning).toHaveBeenCalled()
+    })
   })
 
   describe('startScanning()', () => {
-    xit('calls "start" on the scanner object')
-    xit('creates a new TimedModal error message when a camera is not found')
+    xit('calls getCamera()')
+    xit('calls this.scanner.start() when a camera is found')
+    xit('logs an error when this.scanner.start() fails')
+  })
+
+  describe('getCamera()', () => {
+    xit('calls InstascanCamera.getCameras()')
+    xit('returns the first camera it finds')
+    xit('logs an error message when no camera is found')
   })
 })

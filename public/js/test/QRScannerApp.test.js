@@ -1,4 +1,4 @@
-describe('QRScannerApplication', () => {
+describe('QRScannerApp', () => {
   let videoElementId = 'video-preview'
   let app, videoElement, newCameraOperatorSpy, cameraOperatorSpy
 
@@ -10,7 +10,7 @@ describe('QRScannerApplication', () => {
 
     // initialize CameraOperator spy object
     cameraOperatorSpy = jasmine.createSpyObj('cameraOperator', ['start'])
-    newCameraOperatorSpy = spyOn(QRScannerApplication.prototype, 'newCameraOperator')
+    newCameraOperatorSpy = spyOn(QRScannerApp.prototype, 'newCameraOperator')
       .and.returnValue(cameraOperatorSpy)
   })
 
@@ -21,20 +21,20 @@ describe('QRScannerApplication', () => {
 
   describe('start()', () => {
     it('does not create a new CameraOperator when videoDisplayId is not present', () => {
-      app = new QRScannerApplication('id-does-not-exist')
+      app = new QRScannerApp('id-does-not-exist')
       app.start()
       expect(app.cameraOperator).toBeNull()
     })
 
     it('creates a new CameraOperator when videoDisplayId is present', () => {
-      app = new QRScannerApplication(videoElementId)
+      app = new QRScannerApp(videoElementId)
       app.start()
       expect(newCameraOperatorSpy).toHaveBeenCalled()
       expect(app.cameraOperator).not.toBeNull()
     })
 
     it('calls start() on the cameraOperator object', () => {
-      app = new QRScannerApplication(videoElementId)
+      app = new QRScannerApp(videoElementId)
       app.start()
       expect(cameraOperatorSpy.start).toHaveBeenCalled()
     })
