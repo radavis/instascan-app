@@ -1,15 +1,16 @@
 require('dotenv').config()
 
-let bodyParser = require('body-parser')
 let path = require('path')
 let express = require('express')
+let bodyParser = require('body-parser')
+let httpClient = require('request')
 
 let launchPassURL = require(path.join(__dirname, 'src', 'launchPassURL'))
 let ipFilter = require(path.join(__dirname, 'src', 'ipFilter'))
 
 // setup
 let server = express()
-server.set('port', (process.env.PORT || 5000))
+server.set('port', (process.env.PORT))
 server.use(ipFilter)
 server.use(bodyParser.json())
 server.use(express.static(path.join(__dirname, 'public')))
@@ -19,10 +20,11 @@ server.get('/', (request, response) => {
   response.sendfile(path.join(__dirname, 'public', 'index.html' ))
 })
 
-server.post('/api/v1/attendance', (request, response) => {
-  // let url = `${launchPassURL}/api/v1/attendance`
-  console.log(request.body)
-  response.status(201).send('Created')
+server.post('/api/v2/attendance', (request, response) => {
+  // relay request to LaunchPass API
+  let url = `${launchPassURL}/api/v2/attendance`
+  request.pipe(httpClient.post(url, { json: true, body: request.body }), { end: false })
+    .pipe(response)
 })
 
 // start

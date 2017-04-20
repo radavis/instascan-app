@@ -1,6 +1,6 @@
 let postObjectToAPI = (content, objectType, apiPath) => {
   objectType = objectType || 'scan'
-  apiPath = apiPath || '/api/v1/attendance'
+  apiPath = apiPath || '/api/v2/attendance'
 
   let dataObject = {}
   dataObject[objectType] = content
@@ -12,6 +12,7 @@ let postObjectToAPI = (content, objectType, apiPath) => {
     headers: new Headers({ 'Content-Type': 'application/json' })
   })
   .then((response) => {
+    console.log(response)
     if (response.status == 201) {
       new TimedModal('HTTP Status: 201 Created.').display()
       console.log(`POST request to ${apiPath} was successful.`)

@@ -1,5 +1,5 @@
 {
-  "name": "attendance-scanner",
+  "name": "instascan-app",
   "author": "Richard Davis <rdavis.bacs@gmail.com>",
   "version": "0.0.1",
   "description": "Application that scans QR codes and posts them to an API.",
@@ -14,11 +14,12 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "request": "^2.81.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/radavis/instascan-demo"
+    "url": "https://github.com/radavis/instascan-app"
   },
   "keywords": [
     "node",

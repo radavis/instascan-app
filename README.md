@@ -1,4 +1,4 @@
-## Instascan Demo
+## Instascan App
 
 Scan a QR code & post results to an API.
 
@@ -6,13 +6,19 @@ Scan a QR code & post results to an API.
 
 ```no-highlight
 $ git clone <this-repo>
-$ cd instascan-demo
+$ cd instascan-app
 $ npm install
 $ heroku local web # or
 $ npm start
 ```
 
+Startup LaunchPass on port 3001.
+
 Visit <http://localhost:5000/> and hold a QR code in front of the camera.
+
+## Live Application
+
+[Production](https://la-attendance.herokuapp.com)
 
 ## TODO
 

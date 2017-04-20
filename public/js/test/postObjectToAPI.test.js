@@ -22,15 +22,16 @@ describe('postObjectToApi', () => {
 
     it('makes a fetch request', () => {
       postObjectToAPI(data)
-      expect(window.fetch).toHaveBeenCalledWith('/api/v1/attendance', {
+      expect(window.fetch).toHaveBeenCalledWith('/api/v2/attendance', {
         method: 'POST',
-        body: JSON.stringify({ scan: data })
+        body: JSON.stringify({ scan: data }),
+        headers: new Headers({ 'Content-Type': 'application/json' })
       })
     })
 
     it('shows a successful message when response status is 201', (done) => {
       postObjectToAPI(data).then(() => {
-        expect(console.log).toHaveBeenCalledWith('POST request to /api/v1/attendance was successful.')
+        expect(console.log).toHaveBeenCalledWith('POST request to /api/v2/attendance was successful.')
         done()
       })
     })
@@ -53,7 +54,7 @@ describe('postObjectToApi', () => {
 
     it('shows an error message with any other response.status', (done) => {
       postObjectToAPI(data).then(() => {
-        expect(console.error).toHaveBeenCalledWith('POST request to /api/v1/attendance failed.')
+        expect(console.error).toHaveBeenCalledWith('POST request to /api/v2/attendance failed.')
         done()
       })
     })
