@@ -1,15 +1,22 @@
 {
-  "name": "instascan-demo",
-  "version": "1.0.0",
-  "description": "",
+  "name": "attendance-scanner",
+  "author": "Richard Davis <rdavis.bacs@gmail.com>",
+  "version": "0.0.1",
+  "description": "Application that scans QR codes and posts them to an API.",
   "main": "server.js",
+  "engines": {
+    "node": "6.10.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "open public/testRunner.html",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "express": "^4.15.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/radavis/instascan-demo"
+  },
+  "license": "ISC"
 }
