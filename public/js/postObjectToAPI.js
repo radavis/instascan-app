@@ -1,11 +1,15 @@
-let postObjectToAPI = (content, objectType = 'scan', apiPath = '/api/v1/attendance') => {
+let postObjectToAPI = (content, objectType, apiPath) => {
+  objectType = objectType || 'scan'
+  apiPath = apiPath || '/api/v1/attendance'
+
   let dataObject = {}
   dataObject[objectType] = content
   console.log(dataObject)
 
   return fetch(apiPath, {
     method: 'POST',
-    body: JSON.stringify(dataObject)
+    body: JSON.stringify(dataObject),
+    headers: new Headers({ 'Content-Type': 'application/json' })
   })
   .then((response) => {
     if (response.status == 201) {
