@@ -18,5 +18,10 @@
     "type": "git",
     "url": "https://github.com/radavis/instascan-demo"
   },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "license": "ISC"
 }
